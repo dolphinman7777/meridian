@@ -7,22 +7,21 @@ import { useState, useEffect, useCallback } from "react" // Import useState, use
 
 interface MeridianMapProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-// Helper to generate a random number within a range for adding "entropy"
+// Helper to generate a random number within a range for adding "entropy" - reduced for smoother curves
 const getRandomOffset = (max: number) => (Math.random() - 0.5) * 2 * max
 
-// Function to generate SVG path data using cubic Bezier curves with randomness
+// Function to generate SVG path data using cubic Bezier curves with reduced randomness
 const getBezierPathData = (points: { x: number; y: number }[]) => {
   if (points.length < 2) return ""
 
   let path = `M ${points[0].x} ${points[0].y}`
-  const randomnessFactor = 10 // Adjust this value for more or less "wobble"
+  const randomnessFactor = 3 // Reduced from 10 for smoother, less glitchy curves
 
   for (let i = 0; i < points.length - 1; i++) {
     const p0 = points[i]
     const p1 = points[i + 1]
 
-    // Calculate control points for a cubic Bezier curve
-    // These are derived from the start and end points, with random perturbations
+    // Calculate control points for a cubic Bezier curve with less randomness
     const cp1x = p0.x + (p1.x - p0.x) / 3 + getRandomOffset(randomnessFactor)
     const cp1y = p0.y + (p1.y - p0.y) / 3 + getRandomOffset(randomnessFactor)
     const cp2x = p0.x + ((p1.x - p0.x) * 2) / 3 + getRandomOffset(randomnessFactor)
@@ -42,8 +41,8 @@ const getRandomPoint = (maxX: number, maxY: number) => ({
 // Generate a set of interconnected paths with more "meridian-like" flow
 const generateMeridianPaths = (numPaths: number, numSegmentsPerPath: number, maxX: number, maxY: number) => {
   const generatedLines = []
-  // Adjusted the very light colors to be slightly darker for better visibility
-  const customColors = ["#C0C0C0", "#656668", "#727273", "#727273", "#D0D0D0", "#BFBFBF"]
+  // Much more subtle colors
+  const customColors = ["#E5E5E5", "#E8E8E8", "#EAEAEA", "#ECECEC", "#EEEEEE", "#F0F0F0"]
   for (let i = 0; i < numPaths; i++) {
     const points = []
     let currentPoint = getRandomPoint(maxX, maxY)
@@ -58,7 +57,7 @@ const generateMeridianPaths = (numPaths: number, numSegmentsPerPath: number, max
 
     generatedLines.push({
       id: `path-${i}`,
-      strokeColor: customColors[i % customColors.length], // Use the custom hex colors
+      strokeColor: customColors[i % customColors.length], // Use the more subtle colors
       points: points,
     })
   }
@@ -68,56 +67,90 @@ const generateMeridianPaths = (numPaths: number, numSegmentsPerPath: number, max
 const SVG_WIDTH = 1000
 const SVG_HEIGHT = 600
 
-// Create multiple layers for depth effect - moved outside component to prevent regeneration
-const createLayeredPaths = () => {
+// Static paths for SSR - simple grid-like pattern
+const createStaticPaths = () => {
   const layers = []
   
-  // Back layer - most subtle, lighter
-  layers.push({
-    name: 'back',
-    lines: generateMeridianPaths(15, 6, SVG_WIDTH, SVG_HEIGHT),
-    opacity: 0.08,
-    strokeWidth: 0.4,
-    colors: ["#E8E8E8", "#EEEEEE", "#F0F0F0", "#E5E5E5", "#EDEDED", "#EAEAEA"],
-    blur: 'url(#depth-blur-back)'
-  })
+  // Simple static lines that won't change between server and client
+  const staticLines = [
+    { id: 'static-1', points: [{ x: 100, y: 100 }, { x: 300, y: 150 }, { x: 500, y: 200 }] },
+    { id: 'static-2', points: [{ x: 200, y: 300 }, { x: 400, y: 350 }, { x: 600, y: 400 }] },
+    { id: 'static-3', points: [{ x: 150, y: 450 }, { x: 350, y: 500 }, { x: 550, y: 550 }] }
+  ]
   
-  // Middle layer - medium visibility
   layers.push({
-    name: 'middle',
-    lines: generateMeridianPaths(20, 6, SVG_WIDTH, SVG_HEIGHT),
-    opacity: 0.18,
-    strokeWidth: 0.5,
-    colors: ["#D0D0D0", "#BABABA", "#C2C2C2", "#BCBCBC", "#CCCCCC", "#C8C8C8"],
-    blur: 'url(#depth-blur-middle)'
-  })
-  
-  // Front layer - most visible, darker
-  layers.push({
-    name: 'front',
-    lines: generateMeridianPaths(18, 6, SVG_WIDTH, SVG_HEIGHT),
-    opacity: 0.35,
-    strokeWidth: 0.7,
-    colors: ["#A0A0A0", "#888888", "#959595", "#8A8A8A", "#999999", "#909090"],
+    name: 'static',
+    lines: staticLines,
+    opacity: 0.25, // Increased for more visibility
+    strokeWidth: 1.0, // Thicker lines
+    colors: ["#B8B8B8"], // Darker gray that's clearly visible
     blur: 'none'
   })
   
   return layers
 }
 
-// Generate the paths once outside the component
-const layeredPaths = createLayeredPaths()
-const allLinesFlat = layeredPaths.flatMap(layer => 
-  layer.lines.map(line => ({ ...line, layer: layer.name }))
-)
-
-// Collect all unique node points from all layers
-const allNodes = layeredPaths.flatMap(layer => layer.lines.flatMap(line => line.points))
-const uniqueNodes = Array.from(new Map(allNodes.map((node) => [`${node.x},${node.y}`, node])).values())
+// Create multiple layers for depth effect - reduced number of paths for less visual noise
+const createLayeredPaths = () => {
+  const layers = []
+  
+  // Back layer - subtle but clearly visible
+  layers.push({
+    name: 'back',
+    lines: generateMeridianPaths(8, 4, SVG_WIDTH, SVG_HEIGHT), // Reduced from 15, 6
+    opacity: 0.15, // Increased for visibility
+    strokeWidth: 0.7, // Thicker
+    colors: ["#CCCCCC", "#CECECE", "#D0D0D0", "#CACACA", "#D2D2D2", "#D4D4D4"],
+    blur: 'url(#depth-blur-back)'
+  })
+  
+  // Middle layer - more visible
+  layers.push({
+    name: 'middle',
+    lines: generateMeridianPaths(10, 4, SVG_WIDTH, SVG_HEIGHT), // Reduced from 20, 6
+    opacity: 0.20, // Increased for visibility
+    strokeWidth: 0.8, // Thicker
+    colors: ["#B8B8B8", "#BABABA", "#BCBCBC", "#B6B6B6", "#BEBEBE", "#C0C0C0"],
+    blur: 'url(#depth-blur-middle)'
+  })
+  
+  // Front layer - most visible
+  layers.push({
+    name: 'front',
+    lines: generateMeridianPaths(12, 4, SVG_WIDTH, SVG_HEIGHT), // Reduced from 18, 6
+    opacity: 0.30, // Increased for clear visibility
+    strokeWidth: 1.0, // Thicker
+    colors: ["#A0A0A0", "#A2A2A2", "#A4A4A4", "#9E9E9E", "#A6A6A6", "#A8A8A8"],
+    blur: 'none'
+  })
+  
+  return layers
+}
 
 export function MeridianMap({ className, ...props }: MeridianMapProps) {
+  const [layeredPaths, setLayeredPaths] = useState(() => createStaticPaths())
+  const [allLinesFlat, setAllLinesFlat] = useState<any[]>([])
+  const [uniqueNodes, setUniqueNodes] = useState<{ x: number; y: number }[]>([])
+  const [isClient, setIsClient] = useState(false)
   const [animatedLines, setAnimatedLines] = useState<Array<{ line: any, layer: string, animationKey: number }>>([])
-  const maxAnimatedLines = 6 // Allow a few simultaneous animations
+  const maxAnimatedLines = 2 // Reduced from 6 for less visual chaos
+
+  // Generate paths only on client side to avoid hydration mismatch
+  useEffect(() => {
+    setIsClient(true)
+    const clientLayeredPaths = createLayeredPaths()
+    setLayeredPaths(clientLayeredPaths)
+    
+    const clientAllLinesFlat = clientLayeredPaths.flatMap(layer => 
+      layer.lines.map(line => ({ ...line, layer: layer.name }))
+    )
+    setAllLinesFlat(clientAllLinesFlat)
+    
+    // Collect all unique node points from all layers
+    const allNodes = clientLayeredPaths.flatMap(layer => layer.lines.flatMap(line => line.points))
+    const clientUniqueNodes = Array.from(new Map(allNodes.map((node) => [`${node.x},${node.y}`, node])).values())
+    setUniqueNodes(clientUniqueNodes)
+  }, [])
 
   // Callback to remove an animation when it completes
   const handleAnimationComplete = useCallback((keyToRemove: number) => {
@@ -125,6 +158,8 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
   }, [])
 
   useEffect(() => {
+    if (!isClient || allLinesFlat.length === 0) return
+
     const interval = setInterval(() => {
       // Add a new animated line from any layer
       const randomIndex = Math.floor(Math.random() * allLinesFlat.length)
@@ -144,28 +179,28 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
         }
         return [...prev, newAnimatedLine]
       })
-    }, 1200) // Slightly faster interval for more activity
+    }, 4000) // Much slower interval - increased from 1200ms for calmer animation
 
     return () => clearInterval(interval)
-  }, [maxAnimatedLines])
+  }, [maxAnimatedLines, allLinesFlat, isClient])
 
-  // Get animation colors based on layer
+  // Get animation colors based on layer - much more subtle
   const getAnimationColor = (layer: string) => {
     switch (layer) {
-      case 'back': return '#D8D8D8' // Very subtle grey
-      case 'middle': return '#B8B8B8' // Medium grey
-      case 'front': return '#888888' // Darker grey
-      default: return '#B8B8B8'
+      case 'back': return '#A8A8A8' // More visible grey
+      case 'middle': return '#909090' // More visible grey  
+      case 'front': return '#808080' // More visible grey
+      default: return '#909090'
     }
   }
 
-  // Get animation opacity based on layer
+  // Get animation opacity based on layer - much more subtle
   const getAnimationOpacity = (layer: string) => {
     switch (layer) {
-      case 'back': return 0.3
-      case 'middle': return 0.5
-      case 'front': return 0.8
-      default: return 0.5
+      case 'back': return 0.5 // Increased for visibility
+      case 'middle': return 0.6 // Increased for visibility
+      case 'front': return 0.8 // Increased for visibility
+      default: return 0.6
     }
   }
 
@@ -179,44 +214,44 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
     >
       <svg className="h-full w-full" viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`} preserveAspectRatio="xMidYMid meet">
         <defs>
-          {/* Define a filter for the static/fuzz effect with finer grain */}
+          {/* Define a filter for the static/fuzz effect with finer grain - much more subtle */}
           <filter id="fuzz-effect">
-            <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" stitchTiles="stitch" result="fuzz" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" stitchTiles="stitch" result="fuzz" />
             <feColorMatrix type="saturate" values="0" in="fuzz" result="grayscaleFuzz" />
           </filter>
           
-          {/* Depth blur filters for different layers */}
+          {/* Depth blur filters for different layers - increased blur for smoother look */}
           <filter id="depth-blur-back">
-            <feGaussianBlur stdDeviation="0.8" />
+            <feGaussianBlur stdDeviation="1.2" />
           </filter>
           <filter id="depth-blur-middle">
-            <feGaussianBlur stdDeviation="0.3" />
+            <feGaussianBlur stdDeviation="0.6" />
           </filter>
         </defs>
 
-        {/* Very subtle background grid lines for structure */}
-        {Array.from({ length: 10 }).map((_, i) => (
+        {/* Background grid lines - more visible */}
+        {Array.from({ length: 8 }).map((_, i) => ( // Reduced from 10 for less visual noise
           <line
             key={`h-line-${i}`}
             x1="0"
-            y1={i * (SVG_HEIGHT / 10)}
+            y1={i * (SVG_HEIGHT / 8)}
             x2={SVG_WIDTH}
-            y2={i * (SVG_HEIGHT / 10)}
-            stroke="#f8f8f8" // Even more subtle light gray
-            strokeWidth="0.3"
-            opacity="0.4" // Very subtle opacity
+            y2={i * (SVG_HEIGHT / 8)}
+            stroke="#dddddd" // More visible
+            strokeWidth="0.4" // Slightly thicker
+            opacity="0.4" // More visible
           />
         ))}
-        {Array.from({ length: 10 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => ( // Reduced from 10
           <line
             key={`v-line-${i}`}
-            x1={i * (SVG_WIDTH / 10)}
+            x1={i * (SVG_WIDTH / 8)}
             y1="0"
-            x2={i * (SVG_WIDTH / 10)}
+            x2={i * (SVG_WIDTH / 8)}
             y2={SVG_HEIGHT}
-            stroke="#f8f8f8" // Even more subtle light gray
-            strokeWidth="0.3"
-            opacity="0.4" // Very subtle opacity
+            stroke="#dddddd" // More visible
+            strokeWidth="0.4" // Slightly thicker
+            opacity="0.4" // More visible
           />
         ))}
 
@@ -239,25 +274,25 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
           </g>
         ))}
 
-        {/* Render the animated flow lines */}
-        {animatedLines.map((item) => (
+        {/* Render the animated flow lines - only on client */}
+        {isClient && animatedLines.map((item) => (
           <AnimatedFlowLine
             key={item.animationKey}
             pathData={getBezierPathData(item.line.points)}
             strokeColor={getAnimationColor(item.layer)}
-            animationDuration={3000 + Math.random() * 3000} // Varied duration (3s to 6s)
-            segmentLengthRatio={0.08 + Math.random() * 0.04} // Varied segment length
+            animationDuration={5000 + Math.random() * 4000} // Longer, more consistent duration (5s to 9s)
+            segmentLengthRatio={0.06 + Math.random() * 0.02} // Smaller, more consistent segments
             animationKey={item.animationKey}
             onAnimationComplete={handleAnimationComplete}
             layerOpacity={getAnimationOpacity(item.layer)}
           />
         ))}
 
-        {/* Render the subtle nodes with depth */}
-        {uniqueNodes.map((node, index) => {
+        {/* Render the subtle nodes with depth - more visible */}
+        {isClient && uniqueNodes.map((node, index) => {
           const depthFactor = Math.random() // Random depth for each node
-          const baseOpacity = 0.15 + (depthFactor * 0.25) // Nodes closer to front are more visible
-          const nodeSize = 1.2 + (depthFactor * 0.8) // Front nodes are slightly larger
+          const baseOpacity = 0.15 + (depthFactor * 0.2) // More visible nodes
+          const nodeSize = 1.2 + (depthFactor * 0.6) // Larger nodes
           
           return (
             <circle
@@ -265,7 +300,7 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
               cx={node.x}
               cy={node.y}
               r={nodeSize}
-              fill={depthFactor > 0.7 ? "#666" : depthFactor > 0.4 ? "#777" : "#888"} // Darker fill for front nodes
+              fill={depthFactor > 0.7 ? "#999999" : depthFactor > 0.4 ? "#A5A5A5" : "#B0B0B0"} // Darker, more visible fills
               stroke="none"
               opacity={baseOpacity}
               className="transition-all duration-300"
@@ -273,28 +308,7 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
           )
         })}
 
-        {/* Add a semi-transparent rectangle with the fuzz filter applied (reduced opacity for muted grain) */}
-        <rect
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          fill="white"
-          filter="url(#fuzz-effect)"
-          opacity="0.03" /* Even more reduced opacity */
-          pointerEvents="none" /* Ensures the fuzz layer doesn't block interactions */
-        />
-
-        {/* Overlay rectangle for overall muting effect (adjusted opacity) */}
-        <rect
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          fill="#E8E8E8" /* A very light gray for muting */
-          opacity="0.06" /* Subtle opacity to mute the colors */
-          pointerEvents="none"
-        />
+        {/* Remove the overlay to allow full visibility */}
       </svg>
     </div>
   )
