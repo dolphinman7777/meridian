@@ -24,8 +24,11 @@ export default function Home() {
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="text-center space-y-6 max-w-4xl px-8 py-12 bg-black/95 backdrop-blur-sm shadow-2xl pointer-events-auto">
               <div className="space-y-4">
-                <h1 className="text-6xl font-bold text-white font-meridian">
-                  meridian
+                <h1 className="text-6xl font-bold text-white font-meridian text-center">
+                  <span className="inline-flex items-center gap-4">
+                    <img src="/meridian-4.svg" alt="Meridian Logo" className="w-16 h-16" />
+                    meridian
+                  </span>
                 </h1>
                 <p className="text-heading-4 text-gray-200">
                   The staked-access protocol for <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span> payments
@@ -60,6 +63,21 @@ export default function Home() {
       <div id="tokenomics">
         <TokenomicsSection />
       </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-8 h-8" />
+              <span className="text-heading-4 font-meridian font-semibold">meridian</span>
+            </div>
+            <p className="text-body-base text-gray-400">
+              The staked-access protocol for <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span> payments
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

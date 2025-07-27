@@ -15,7 +15,8 @@ export function Navigation() {
   return (
     <Toolbar>
       {/* Brand */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
+        <img src="/meridian-4.svg" alt="Meridian Logo" className="w-8 h-8" />
         <span className="font-meridian font-semibold text-white">meridian</span>
       </div>
 

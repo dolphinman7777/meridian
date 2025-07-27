@@ -31,7 +31,10 @@ export function X402Overview() {
         {/* How it Works */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-heading-2 mb-4">How It Works</h3>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-6 h-6 opacity-60" />
+              <h3 className="text-heading-2">How It Works</h3>
+            </div>
             <p className="text-body-large text-gray-600">
               One line of code to accept digital payments
             </p>
@@ -139,7 +142,12 @@ export function X402Overview() {
 
         {/* Use Cases */}
         <div className="mb-20">
-          <h3 className="text-heading-2 text-center mb-12">Perfect For</h3>
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-6 h-6 opacity-60" />
+              <h3 className="text-heading-2">Perfect For</h3>
+            </div>
+          </div>
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="bg-gray-50 rounded-lg p-8">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
@@ -191,7 +199,10 @@ export function X402Overview() {
         {/* CTA */}
         <div className="text-center">
           <div className="bg-meridian-50 rounded-lg p-8 inline-block">
-            <h3 className="text-heading-3 mb-4">Ready to get started?</h3>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-8 h-8" />
+              <h3 className="text-heading-3">Ready to get started?</h3>
+            </div>
             <p className="text-body-large text-gray-600 mb-6">
               Stake tokens to access <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">meridian</span>'s payment facilitator and earn yield
             </p>

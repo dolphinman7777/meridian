@@ -27,7 +27,10 @@ export function TokenomicsSection() {
         {/* Staking Overview */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-heading-2 mb-4">Staking Model</h3>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-6 h-6 opacity-60" />
+              <h3 className="text-heading-2">Staking Model</h3>
+            </div>
             <p className="text-body-large text-gray-600">
               Simple staking with transparent rewards
             </p>
@@ -137,7 +140,10 @@ export function TokenomicsSection() {
         {/* Staker Benefits */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-heading-2 mb-4">Staker Benefits</h3>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-6 h-6 opacity-60" />
+              <h3 className="text-heading-2">Staker Benefits</h3>
+            </div>
             <p className="text-body-large text-gray-600">
               More than just yield - unlock premium features
             </p>
@@ -189,7 +195,10 @@ export function TokenomicsSection() {
         {/* CTA */}
         <div className="text-center">
           <div className="bg-meridian-50 rounded-lg p-8 inline-block">
-            <h3 className="text-heading-3 mb-4">Start earning with meridian</h3>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img src="/meridian-4.svg" alt="Meridian Logo" className="w-8 h-8" />
+              <h3 className="text-heading-3">Start earning with meridian</h3>
+            </div>
             <p className="text-body-large text-gray-600 mb-6">
               Join the network and earn yield from day one
             </p>
