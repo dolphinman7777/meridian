@@ -20,18 +20,18 @@ export function X402Overview() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-heading-1 mb-6">
-            Instant API Payments with <span className="text-meridian-300">x402</span>
+            Instant API Payments with <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span>
           </h2>
-          <p className="text-heading-4 text-gray-600 max-w-4xl mx-auto">
-            Built around the HTTP 402 status code, x402 enables instant payments for API resources 
-            without registration, emails, OAuth, or complex signatures.
-          </p>
+                      <p className="text-heading-4 text-gray-600 max-w-4xl mx-auto">
+              Built around the HTTP 402 status code, <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span> enables instant payments for API resources 
+              without registration, emails, OAuth, or complex signatures.
+            </p>
         </div>
 
         {/* How it Works */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-heading-2 mb-4">How x402 Works</h3>
+            <h3 className="text-heading-2 mb-4">How <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span> Works</h3>
             <p className="text-body-large text-gray-600">
               One line of code to accept digital payments
             </p>
@@ -56,8 +56,8 @@ export function X402Overview() {
               <h4 className="text-heading-5 mb-3 text-red-800">Without Payment</h4>
               <div className="font-mono text-sm space-y-1">
                 <div className="text-red-600">HTTP/1.1 402 Payment Required</div>
-                <div className="text-gray-600">x402-price: 0.01 USDC</div>
-                <div className="text-gray-600">x402-address: 0xYourAddress</div>
+                <div className="text-gray-600"><span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span>-price: 0.01 USDC</div>
+                <div className="text-gray-600"><span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span>-address: 0xYourAddress</div>
               </div>
             </div>
             <div className="bg-green-50 border border-meridian-200 rounded-lg p-6">
@@ -73,7 +73,7 @@ export function X402Overview() {
 
         {/* Benefits Grid */}
         <div className="mb-20">
-          <h3 className="text-heading-2 text-center mb-12">Why Choose x402?</h3>
+          <h3 className="text-heading-2 text-center mb-12">Why Choose <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span>?</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-meridian-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -139,7 +139,7 @@ export function X402Overview() {
 
         {/* Use Cases */}
         <div className="mb-20">
-          <h3 className="text-heading-2 text-center mb-12">Who Uses x402?</h3>
+          <h3 className="text-heading-2 text-center mb-12">Who Uses <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span>?</h3>
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="bg-gray-50 rounded-lg p-8">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
@@ -191,9 +191,9 @@ export function X402Overview() {
         {/* CTA */}
         <div className="text-center">
           <div className="bg-meridian-50 rounded-lg p-8 inline-block">
-            <h3 className="text-heading-3 mb-4">Ready to integrate x402?</h3>
+            <h3 className="text-heading-3 mb-4">Ready to integrate <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span>?</h3>
             <p className="text-body-large text-gray-600 mb-6">
-              Stake tokens to access meridian's payment facilitator and start earning yield
+              Stake tokens to access <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">meridian</span>'s payment facilitator and start earning yield
             </p>
             <div className="flex gap-4 justify-center">
               <button className="px-8 py-3 bg-meridian-400 hover:bg-meridian-500 text-white font-semibold rounded-lg transition-colors flex items-center gap-2">

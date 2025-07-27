@@ -76,16 +76,18 @@ const SVG_HEIGHT = 600
 const createStableMeridianPaths = () => {
   const layers = []
   
-  // Back layer - pre-defined stable coordinates
+  // Back layer - spread across full canvas
   const backLines = [
-    { id: 'back-1', points: [{ x: 150, y: 120 }, { x: 250, y: 180 }, { x: 400, y: 160 }, { x: 550, y: 200 }] },
-    { id: 'back-2', points: [{ x: 300, y: 250 }, { x: 450, y: 300 }, { x: 600, y: 280 }, { x: 750, y: 320 }] },
-    { id: 'back-3', points: [{ x: 100, y: 350 }, { x: 280, y: 400 }, { x: 460, y: 380 }, { x: 640, y: 420 }] },
-    { id: 'back-4', points: [{ x: 200, y: 480 }, { x: 350, y: 520 }, { x: 500, y: 500 }, { x: 680, y: 540 }] },
-    { id: 'back-5', points: [{ x: 80, y: 200 }, { x: 220, y: 240 }, { x: 380, y: 220 }, { x: 520, y: 260 }] },
-    { id: 'back-6', points: [{ x: 250, y: 350 }, { x: 400, y: 390 }, { x: 570, y: 370 }, { x: 720, y: 410 }] },
-    { id: 'back-7', points: [{ x: 120, y: 450 }, { x: 270, y: 490 }, { x: 420, y: 470 }, { x: 570, y: 510 }] },
-    { id: 'back-8', points: [{ x: 180, y: 150 }, { x: 320, y: 190 }, { x: 480, y: 170 }, { x: 620, y: 210 }] }
+    { id: 'back-1', points: [{ x: 50, y: 80 }, { x: 300, y: 120 }, { x: 650, y: 100 }, { x: 950, y: 140 }] },
+    { id: 'back-2', points: [{ x: 30, y: 180 }, { x: 350, y: 220 }, { x: 700, y: 200 }, { x: 970, y: 240 }] },
+    { id: 'back-3', points: [{ x: 70, y: 280 }, { x: 400, y: 320 }, { x: 750, y: 300 }, { x: 980, y: 340 }] },
+    { id: 'back-4', points: [{ x: 40, y: 380 }, { x: 320, y: 420 }, { x: 680, y: 400 }, { x: 940, y: 440 }] },
+    { id: 'back-5', points: [{ x: 60, y: 480 }, { x: 380, y: 520 }, { x: 720, y: 500 }, { x: 960, y: 540 }] },
+    { id: 'back-6', points: [{ x: 20, y: 130 }, { x: 280, y: 170 }, { x: 600, y: 150 }, { x: 920, y: 190 }] },
+    { id: 'back-7', points: [{ x: 80, y: 230 }, { x: 420, y: 270 }, { x: 760, y: 250 }, { x: 990, y: 290 }] },
+    { id: 'back-8', points: [{ x: 10, y: 330 }, { x: 360, y: 370 }, { x: 640, y: 350 }, { x: 900, y: 390 }] },
+    { id: 'back-9', points: [{ x: 90, y: 430 }, { x: 340, y: 470 }, { x: 630, y: 450 }, { x: 930, y: 490 }] },
+    { id: 'back-10', points: [{ x: 25, y: 530 }, { x: 310, y: 570 }, { x: 590, y: 550 }, { x: 880, y: 580 }] }
   ]
   
   layers.push({
@@ -97,18 +99,20 @@ const createStableMeridianPaths = () => {
     blur: 'url(#depth-blur-back)'
   })
   
-  // Middle layer - pre-defined stable coordinates
+  // Middle layer - spread across full canvas
   const middleLines = [
-    { id: 'mid-1', points: [{ x: 130, y: 100 }, { x: 280, y: 140 }, { x: 430, y: 120 }, { x: 580, y: 160 }] },
-    { id: 'mid-2', points: [{ x: 320, y: 230 }, { x: 470, y: 270 }, { x: 620, y: 250 }, { x: 770, y: 290 }] },
-    { id: 'mid-3', points: [{ x: 90, y: 320 }, { x: 240, y: 360 }, { x: 390, y: 340 }, { x: 540, y: 380 }] },
-    { id: 'mid-4', points: [{ x: 240, y: 460 }, { x: 390, y: 500 }, { x: 540, y: 480 }, { x: 690, y: 520 }] },
-    { id: 'mid-5', points: [{ x: 160, y: 180 }, { x: 310, y: 220 }, { x: 460, y: 200 }, { x: 610, y: 240 }] },
-    { id: 'mid-6', points: [{ x: 280, y: 330 }, { x: 430, y: 370 }, { x: 580, y: 350 }, { x: 730, y: 390 }] },
-    { id: 'mid-7', points: [{ x: 110, y: 430 }, { x: 260, y: 470 }, { x: 410, y: 450 }, { x: 560, y: 490 }] },
-    { id: 'mid-8', points: [{ x: 200, y: 130 }, { x: 350, y: 170 }, { x: 500, y: 150 }, { x: 650, y: 190 }] },
-    { id: 'mid-9', points: [{ x: 350, y: 280 }, { x: 500, y: 320 }, { x: 650, y: 300 }, { x: 800, y: 340 }] },
-    { id: 'mid-10', points: [{ x: 140, y: 380 }, { x: 290, y: 420 }, { x: 440, y: 400 }, { x: 590, y: 440 }] }
+    { id: 'mid-1', points: [{ x: 15, y: 60 }, { x: 250, y: 100 }, { x: 580, y: 80 }, { x: 895, y: 120 }] },
+    { id: 'mid-2', points: [{ x: 85, y: 160 }, { x: 380, y: 200 }, { x: 680, y: 180 }, { x: 945, y: 220 }] },
+    { id: 'mid-3', points: [{ x: 35, y: 260 }, { x: 320, y: 300 }, { x: 620, y: 280 }, { x: 915, y: 320 }] },
+    { id: 'mid-4', points: [{ x: 105, y: 360 }, { x: 410, y: 400 }, { x: 740, y: 380 }, { x: 985, y: 420 }] },
+    { id: 'mid-5', points: [{ x: 25, y: 460 }, { x: 280, y: 500 }, { x: 560, y: 480 }, { x: 835, y: 520 }] },
+    { id: 'mid-6', points: [{ x: 95, y: 110 }, { x: 340, y: 150 }, { x: 640, y: 130 }, { x: 905, y: 170 }] },
+    { id: 'mid-7', points: [{ x: 45, y: 210 }, { x: 390, y: 250 }, { x: 710, y: 230 }, { x: 975, y: 270 }] },
+    { id: 'mid-8', points: [{ x: 115, y: 310 }, { x: 360, y: 350 }, { x: 660, y: 330 }, { x: 925, y: 370 }] },
+    { id: 'mid-9', points: [{ x: 5, y: 410 }, { x: 330, y: 450 }, { x: 610, y: 430 }, { x: 875, y: 470 }] },
+    { id: 'mid-10', points: [{ x: 75, y: 510 }, { x: 370, y: 550 }, { x: 690, y: 530 }, { x: 955, y: 570 }] },
+    { id: 'mid-11', points: [{ x: 55, y: 35 }, { x: 300, y: 75 }, { x: 600, y: 55 }, { x: 865, y: 95 }] },
+    { id: 'mid-12', points: [{ x: 125, y: 135 }, { x: 420, y: 175 }, { x: 750, y: 155 }, { x: 995, y: 195 }] }
   ]
   
   layers.push({
@@ -120,20 +124,22 @@ const createStableMeridianPaths = () => {
     blur: 'url(#depth-blur-middle)'
   })
   
-  // Front layer - pre-defined stable coordinates
+  // Front layer - spread across full canvas
   const frontLines = [
-    { id: 'front-1', points: [{ x: 120, y: 80 }, { x: 270, y: 120 }, { x: 420, y: 100 }, { x: 570, y: 140 }] },
-    { id: 'front-2', points: [{ x: 300, y: 210 }, { x: 450, y: 250 }, { x: 600, y: 230 }, { x: 750, y: 270 }] },
-    { id: 'front-3', points: [{ x: 80, y: 300 }, { x: 230, y: 340 }, { x: 380, y: 320 }, { x: 530, y: 360 }] },
-    { id: 'front-4', points: [{ x: 220, y: 440 }, { x: 370, y: 480 }, { x: 520, y: 460 }, { x: 670, y: 500 }] },
-    { id: 'front-5', points: [{ x: 150, y: 160 }, { x: 300, y: 200 }, { x: 450, y: 180 }, { x: 600, y: 220 }] },
-    { id: 'front-6', points: [{ x: 270, y: 310 }, { x: 420, y: 350 }, { x: 570, y: 330 }, { x: 720, y: 370 }] },
-    { id: 'front-7', points: [{ x: 100, y: 410 }, { x: 250, y: 450 }, { x: 400, y: 430 }, { x: 550, y: 470 }] },
-    { id: 'front-8', points: [{ x: 190, y: 110 }, { x: 340, y: 150 }, { x: 490, y: 130 }, { x: 640, y: 170 }] },
-    { id: 'front-9', points: [{ x: 340, y: 260 }, { x: 490, y: 300 }, { x: 640, y: 280 }, { x: 790, y: 320 }] },
-    { id: 'front-10', points: [{ x: 130, y: 360 }, { x: 280, y: 400 }, { x: 430, y: 380 }, { x: 580, y: 420 }] },
-    { id: 'front-11', points: [{ x: 260, y: 490 }, { x: 410, y: 530 }, { x: 560, y: 510 }, { x: 710, y: 550 }] },
-    { id: 'front-12', points: [{ x: 160, y: 240 }, { x: 310, y: 280 }, { x: 460, y: 260 }, { x: 610, y: 300 }] }
+    { id: 'front-1', points: [{ x: 10, y: 40 }, { x: 220, y: 80 }, { x: 540, y: 60 }, { x: 890, y: 100 }] },
+    { id: 'front-2', points: [{ x: 65, y: 140 }, { x: 360, y: 180 }, { x: 650, y: 160 }, { x: 935, y: 200 }] },
+    { id: 'front-3', points: [{ x: 20, y: 240 }, { x: 290, y: 280 }, { x: 590, y: 260 }, { x: 880, y: 300 }] },
+    { id: 'front-4', points: [{ x: 90, y: 340 }, { x: 430, y: 380 }, { x: 720, y: 360 }, { x: 970, y: 400 }] },
+    { id: 'front-5', points: [{ x: 40, y: 440 }, { x: 310, y: 480 }, { x: 580, y: 460 }, { x: 850, y: 500 }] },
+    { id: 'front-6', points: [{ x: 120, y: 90 }, { x: 380, y: 130 }, { x: 670, y: 110 }, { x: 920, y: 150 }] },
+    { id: 'front-7', points: [{ x: 5, y: 190 }, { x: 340, y: 230 }, { x: 630, y: 210 }, { x: 895, y: 250 }] },
+    { id: 'front-8', points: [{ x: 75, y: 290 }, { x: 350, y: 330 }, { x: 640, y: 310 }, { x: 905, y: 350 }] },
+    { id: 'front-9', points: [{ x: 110, y: 390 }, { x: 400, y: 430 }, { x: 700, y: 410 }, { x: 960, y: 450 }] },
+    { id: 'front-10', points: [{ x: 30, y: 490 }, { x: 270, y: 530 }, { x: 550, y: 510 }, { x: 820, y: 550 }] },
+    { id: 'front-11', points: [{ x: 100, y: 15 }, { x: 320, y: 55 }, { x: 610, y: 35 }, { x: 875, y: 75 }] },
+    { id: 'front-12', points: [{ x: 50, y: 115 }, { x: 390, y: 155 }, { x: 680, y: 135 }, { x: 945, y: 175 }] },
+    { id: 'front-13', points: [{ x: 15, y: 340 }, { x: 260, y: 380 }, { x: 520, y: 360 }, { x: 785, y: 400 }] },
+    { id: 'front-14', points: [{ x: 85, y: 540 }, { x: 350, y: 580 }, { x: 620, y: 560 }, { x: 885, y: 590 }] }
   ]
   
   layers.push({
@@ -162,30 +168,14 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
   })
   
   const [animatedLines, setAnimatedLines] = useState<Array<{ line: any, layer: string, animationKey: string }>>([])
-  const maxAnimatedLines = 1
+  const maxAnimatedLines = 4
   
   // Use ref to track animation counter for unique keys
   const animationCounterRef = useRef(0)
-  const completingAnimationsRef = useRef(new Set<string>())
 
-  // Improved callback to remove an animation when it completes
+  // Simplified callback to remove an animation when it completes
   const handleAnimationComplete = useCallback((keyToRemove: string) => {
-    // Prevent duplicate completion calls
-    if (completingAnimationsRef.current.has(keyToRemove)) {
-      return
-    }
-    
-    completingAnimationsRef.current.add(keyToRemove)
-    
-    setAnimatedLines((prev) => {
-      const filtered = prev.filter((item) => item.animationKey !== keyToRemove)
-      return filtered
-    })
-    
-    // Clean up the completion tracking after a short delay
-    setTimeout(() => {
-      completingAnimationsRef.current.delete(keyToRemove)
-    }, 100)
+    setAnimatedLines((prev) => prev.filter((item) => item.animationKey !== keyToRemove))
   }, [])
 
   useEffect(() => {
@@ -214,28 +204,28 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
 
         return [...prev, newAnimatedLine]
       })
-    }, 6000) // Increased interval to 6 seconds to reduce flashing and allow animations to complete more smoothly
+    }, 1800) // Balanced interval to prevent glitching while maintaining pulsating effect
 
     return () => clearInterval(interval)
   }, [maxAnimatedLines, allLinesFlat])
 
-  // Get animation colors based on layer - green tinted
+  // Get animation colors based on layer - brighter for more pronounced pulsating
   const getAnimationColor = (layer: string) => {
     switch (layer) {
-      case 'back': return '#9BF2CA' // Light green
-      case 'middle': return '#48D995' // Medium green  
-      case 'front': return '#27F293' // Bright green
-      default: return '#48D995'
+      case 'back': return '#7EE8B5' // Brighter light green
+      case 'middle': return '#2BC97D' // Brighter medium green  
+      case 'front': return '#00E676' // Vibrant bright green
+      default: return '#2BC97D'
     }
   }
 
-  // Get animation opacity based on layer - much more subtle
+  // Get animation opacity based on layer - higher for more pronounced pulsating
   const getAnimationOpacity = (layer: string) => {
     switch (layer) {
-      case 'back': return 0.5 // Increased for visibility
-      case 'middle': return 0.6 // Increased for visibility
-      case 'front': return 0.8 // Increased for visibility
-      default: return 0.6
+      case 'back': return 0.7 // Higher for more visible pulsating
+      case 'middle': return 0.8 // Higher for more visible pulsating
+      case 'front': return 1.0 // Full opacity for strongest pulsating effect
+      default: return 0.8
     }
   }
 
@@ -272,9 +262,9 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
             y1={i * (SVG_HEIGHT / 8)}
             x2={SVG_WIDTH}
             y2={i * (SVG_HEIGHT / 8)}
-            stroke="#e0ede0" // Very subtle green tint
-            strokeWidth="0.4" // Slightly thicker
-            opacity="0.4" // More visible
+            stroke="#d8e8d8" // Slightly darker green tint for better visibility
+            strokeWidth="0.5" // Slightly thicker
+            opacity="0.6" // More visible
           />
         ))}
         {Array.from({ length: 8 }).map((_, i) => ( // Reduced from 10
@@ -284,9 +274,9 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
             y1="0"
             x2={i * (SVG_WIDTH / 8)}
             y2={SVG_HEIGHT}
-            stroke="#e0ede0" // Very subtle green tint
-            strokeWidth="0.4" // Slightly thicker
-            opacity="0.4" // More visible
+            stroke="#d8e8d8" // Slightly darker green tint for better visibility
+            strokeWidth="0.5" // Slightly thicker
+            opacity="0.6" // More visible
           />
         ))}
 
@@ -313,9 +303,9 @@ export function MeridianMap({ className, ...props }: MeridianMapProps) {
         {animatedLines.map((item, animIndex) => {
           // Extract numeric part from any ID format (back-1, mid-2, front-3, etc.)
           const pathIndex = parseInt(item.line.id.split('-')[1]) || animIndex
-          // Use deterministic duration based on path index to avoid randomness
-          const baseDuration = 6000 + (pathIndex % 5) * 500 // 6s to 8s based on path
-          const segmentRatio = 0.06 + (pathIndex % 3) * 0.01 // 0.06 to 0.08 based on path
+          // Consistent duration for smooth left-to-right flow
+          const baseDuration = 3000 + (pathIndex % 2) * 200 // 3s to 3.2s for smooth consistent pulsating
+          const segmentRatio = 0.15 + (pathIndex % 2) * 0.05 // 0.15 to 0.20 for visible pulse segments
           
           return (
             <AnimatedFlowLine

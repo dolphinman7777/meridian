@@ -37,61 +37,60 @@ export const AnimatedFlowLine: React.FC<AnimatedFlowLineProps> = ({
     }
   }, [pathData])
 
-  // Animate the stroke-dashoffset and opacity
+  // Animate the stroke-dashoffset with smooth transitions
   useEffect(() => {
     if (pathLength === 0) return
 
     let animationFrameId: number
     let startTime: DOMHighResTimeStamp
+    let completed = false
 
     const animate = (currentTime: DOMHighResTimeStamp) => {
       if (!startTime) startTime = currentTime
       const elapsed = currentTime - startTime
 
-      const progress = elapsed / animationDuration
+      const progress = Math.min(elapsed / animationDuration, 1)
 
-      if (progress >= 1) {
-        // Animation complete, trigger callback and stop
-        cancelAnimationFrame(animationFrameId)
-        onAnimationComplete(animationKey)
-        return
+      if (progress >= 1 && !completed) {
+        completed = true
+        // Delay completion callback slightly to prevent race conditions
+        setTimeout(() => onAnimationComplete(animationKey), 50)
       }
 
       // Calculate segment length based on path length
       const segmentLength = pathLength * segmentLengthRatio
 
-      // Animate offset: from pathLength (off-screen end) down to -segmentLength (off-screen start)
-      // This makes a single segment travel from end to start
-      const currentOffset = pathLength - (pathLength + segmentLength) * progress
+      // Smooth easing function for fluid movement
+      const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+
+      // Apply easing to progress for smoother animation
+      const easedProgress = easeInOutCubic(progress)
+
+      // Animate offset: smooth movement from right to left
+      const currentOffset = pathLength - (pathLength + segmentLength) * easedProgress
       setOffset(currentOffset)
 
-      // Smooth opacity animation with fade-in and fade-out to prevent flashing
+      // Simplified opacity: fade in quickly, stay visible, fade out at end
       let currentOpacity = 1
-      const fadeInDuration = 0.15 // Fade in over first 15% of animation
-      const fadeOutStart = 0.75 // Start fading out at 75% completion
-      
-      if (progress < fadeInDuration) {
-        // Smooth fade-in using easeOut function
-        const fadeInProgress = progress / fadeInDuration
-        currentOpacity = fadeInProgress * fadeInProgress * (3.0 - 2.0 * fadeInProgress) // smoothstep
-      } else if (progress > fadeOutStart) {
-        // Smooth fade-out using easeIn function
-        const fadeOutProgress = (progress - fadeOutStart) / (1 - fadeOutStart)
-        const easedFadeOut = fadeOutProgress * fadeOutProgress * (3.0 - 2.0 * fadeOutProgress) // smoothstep
-        currentOpacity = 1 - easedFadeOut
-      } else {
-        // Fully opaque in the middle
-        currentOpacity = 1
+      if (progress < 0.1) {
+        currentOpacity = progress / 0.1 // Fade in over first 10%
+      } else if (progress > 0.9) {
+        currentOpacity = (1 - progress) / 0.1 // Fade out over last 10%
       }
       
-      setOpacity(Math.max(0, Math.min(1, currentOpacity))) // Clamp between 0 and 1
+      setOpacity(Math.max(0, Math.min(1, currentOpacity)))
 
-      animationFrameId = requestAnimationFrame(animate)
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate)
+      }
     }
 
     animationFrameId = requestAnimationFrame(animate)
 
-    return () => cancelAnimationFrame(animationFrameId)
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+      completed = true
+    }
   }, [pathLength, animationDuration, segmentLengthRatio, animationKey, onAnimationComplete])
 
   // Define the dash array: visible segment length, then a gap equal to the rest of the path
@@ -105,12 +104,12 @@ export const AnimatedFlowLine: React.FC<AnimatedFlowLineProps> = ({
       d={pathData}
       fill="none"
       stroke={strokeColor}
-      strokeWidth="1.5" // Slightly thinner for more subtle effect
+      strokeWidth="2.0" // Slightly thicker for better visibility
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray={dashArray}
       strokeDashoffset={offset}
-      opacity={opacity * 0.6 * layerOpacity} // Apply both animation opacity and layer opacity
+      opacity={opacity * 0.8 * layerOpacity} // Higher opacity for better visibility
       // Ensure no CSS transitions interfere with the JS animation
       className="transition-none"
     />

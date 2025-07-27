@@ -22,13 +22,13 @@ export default function Home() {
           
           {/* Welcome overlay */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="text-center space-y-6 max-w-4xl px-8 py-12 bg-black/90 backdrop-blur-sm shadow-2xl pointer-events-auto">
+            <div className="text-center space-y-6 max-w-4xl px-8 py-12 bg-black/95 backdrop-blur-sm shadow-2xl pointer-events-auto">
               <div className="space-y-4">
                 <h1 className="text-6xl font-bold text-white font-meridian">
                   meridian
                 </h1>
                 <p className="text-heading-4 text-gray-200">
-                  The staked-access protocol for x402 payments
+                  The staked-access protocol for <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">x402</span> payments
                 </p>
               </div>
               
@@ -42,7 +42,6 @@ export default function Home() {
               onClick={scrollToOverview}
               className="flex flex-col items-center gap-2 text-white/80 hover:text-white transition-colors group"
             >
-              <span className="text-label text-white/90">Learn about x402</span>
               <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
                 <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce"></div>
               </div>
