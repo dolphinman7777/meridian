@@ -3,149 +3,202 @@
 import * as React from "react"
 import { 
   Coins, 
-  TrendUp, 
-  Lightning, 
+  TrendingUp, 
+  Zap, 
   Users, 
-  CurrencyDollar,
-  ArrowDown 
-} from "phosphor-react"
-import { MeridianMap } from "@/components/meridian-map"
+  DollarSign,
+  ArrowRight
+} from "lucide-react"
 
 export function TokenomicsSection() {
   return (
-    <div className="relative min-h-screen bg-gray-50 overflow-hidden">
-      <MeridianMap className="absolute inset-0 h-full w-full" />
-      
-      {/* Content Overlay */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center py-16">
-        <div className="max-w-6xl mx-auto px-8 py-12 bg-black/90 backdrop-blur-sm shadow-2xl text-white">
-          <div className="text-center mb-16">
-            <h2 className="text-heading-1 mb-4">
-              <span className="text-meridian-300 font-meridian">meridian</span> Tokenomics
-            </h2>
-            <p className="text-heading-4 text-gray-200 max-w-3xl mx-auto">
-              Stake tokens to access the facilitator and earn yield from protocol usage
+    <div className="relative min-h-screen bg-white py-16">
+      <div className="max-w-7xl mx-auto px-8">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-heading-1 mb-6">
+            <span className="bg-meridian-300 text-black px-2 py-0.5 rounded font-semibold">meridian</span> Tokenomics
+          </h2>
+          <p className="text-heading-4 text-gray-600 max-w-3xl mx-auto">
+            Stake tokens to access the facilitator and earn yield from protocol usage
+          </p>
+        </div>
+
+        {/* Staking Overview */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-heading-2 mb-4">Staking Model</h3>
+            <p className="text-body-large text-gray-600">
+              Simple staking with transparent rewards
             </p>
           </div>
-
-          {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
-            {/* Left Side - Staking Mechanism */}
-            <div className="space-y-6">
-              <div className="bg-card/10 p-6 border border-border/20">
-                <div className="flex items-center gap-3 mb-4">
-                  <Coins className="w-6 h-6 text-white" weight="duotone" />
-                  <h3 className="text-heading-3">Staking Model</h3>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-muted/10">
-                    <span className="text-body-base text-gray-300">Stake Amount</span>
-                    <span className="text-meridian-300 font-semibold">$1,000 tokens</span>
-                  </div>
-                  <div className="flex items-center justify-between p-4 bg-muted/10">
-                    <span className="text-body-base text-gray-300">Protocol Fee</span>
-                    <span className="text-meridian-100 font-semibold">1%</span>
-                  </div>
-                  <div className="flex items-center justify-between p-4 bg-muted/10">
-                    <span className="text-body-base text-gray-300">$10 Coverage</span>
-                    <span className="text-meridian-200 font-semibold">Unlocked</span>
-                  </div>
-                </div>
-                <p className="text-body-small text-gray-400 mt-4">
-                  Stake $1,000 worth of tokens to unlock $10 in payment volume coverage with a 1% protocol fee.
-                </p>
+          
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div className="bg-meridian-50 border border-meridian-200 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 bg-meridian-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Coins className="w-8 h-8 text-meridian-600" />
               </div>
+              <h4 className="text-heading-4 mb-2">Stake Amount</h4>
+              <p className="text-heading-3 text-meridian-600 font-bold mb-2">$1,000</p>
+              <p className="text-body-small text-gray-600">in tokens</p>
+            </div>
+            
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <DollarSign className="w-8 h-8 text-gray-600" />
+              </div>
+              <h4 className="text-heading-4 mb-2">Protocol Fee</h4>
+              <p className="text-heading-3 text-gray-800 font-bold mb-2">1%</p>
+              <p className="text-body-small text-gray-600">on transactions</p>
+            </div>
+            
+            <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-green-600" />
+              </div>
+              <h4 className="text-heading-4 mb-2">Coverage</h4>
+              <p className="text-heading-3 text-green-600 font-bold mb-2">$10</p>
+              <p className="text-body-small text-gray-600">unlocked</p>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-body-base text-gray-600 max-w-2xl mx-auto">
+              Stake $1,000 worth of tokens to unlock $10 in payment volume coverage with a 1% protocol fee.
+            </p>
+          </div>
+        </div>
 
-              <div className="bg-card/10 p-6 border border-border/20">
-                <div className="flex items-center gap-3 mb-4">
-                  <TrendUp className="w-6 h-6 text-meridian-300" weight="duotone" />
-                  <h3 className="text-heading-3">Yield Generation</h3>
+        {/* Yield & Network Stats */}
+        <div className="mb-20 bg-gray-50 py-16 -mx-8 px-8">
+          <div className="grid lg:grid-cols-2 gap-16">
+            {/* Yield Generation */}
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-meridian-100 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-meridian-600" />
                 </div>
-                <div className="space-y-3">
-                  <div className="text-body-base text-gray-300">
-                    <span>Current APY: </span>
-                    <span className="text-meridian-300 font-semibold">12.5%</span>
+                <h3 className="text-heading-2">Yield Generation</h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="bg-white rounded-lg p-6 border border-gray-200">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-body-base text-gray-600">Current APY</span>
+                    <span className="text-heading-4 text-meridian-600 font-bold">12.5%</span>
                   </div>
-                  <div className="text-body-base text-gray-300">
-                    <span>Monthly Yield: </span>
-                    <span className="text-meridian-200 font-semibold">$10.42</span>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-body-base text-gray-600">Monthly Yield</span>
+                    <span className="text-heading-4 text-gray-800 font-bold">$10.42</span>
                   </div>
-                  <div className="text-body-base text-gray-300">
-                    <span>Protocol Revenue Share: </span>
-                    <span className="text-meridian-100 font-semibold">70%</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-body-base text-gray-600">Revenue Share</span>
+                    <span className="text-heading-4 text-gray-800 font-bold">70%</span>
                   </div>
                 </div>
-                <p className="text-body-small text-gray-400 mt-4">
+                
+                <p className="text-body-base text-gray-600">
                   Earn yield proportional to your stake from protocol usage fees across the network.
                 </p>
               </div>
             </div>
 
-            {/* Right Side - Usage Stats */}
-            <div className="space-y-6">
-              <div className="bg-card/10 p-6 border border-border/20">
-                <div className="flex items-center gap-3 mb-4">
-                  <Lightning className="w-6 h-6 text-yellow-400" weight="duotone" />
-                  <h3 className="text-heading-3">Network Activity</h3>
+            {/* Network Activity */}
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-yellow-600" />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-muted/10">
-                    <div className="text-heading-3 text-white font-bold">$2.3M</div>
-                    <div className="text-caption text-gray-400">24h Volume</div>
-                  </div>
-                  <div className="text-center p-4 bg-muted/10">
-                    <div className="text-heading-3 text-white font-bold">15,420</div>
-                    <div className="text-caption text-gray-400">Transactions</div>
-                  </div>
-                  <div className="text-center p-4 bg-muted/10">
-                    <div className="text-heading-3 text-white font-bold">98.7%</div>
-                    <div className="text-caption text-gray-400">Success Rate</div>
-                  </div>
-                  <div className="text-center p-4 bg-muted/10">
-                    <div className="text-heading-3 text-white font-bold">$45K</div>
-                    <div className="text-caption text-gray-400">Fees Generated</div>
-                  </div>
-                </div>
+                <h3 className="text-heading-2">Network Activity</h3>
               </div>
-
-              <div className="bg-card/10 p-6 border border-border/20">
-                <div className="flex items-center gap-3 mb-4">
-                  <Users className="w-6 h-6 text-meridian-300" weight="duotone" />
-                  <h3 className="text-heading-3">Staker Benefits</h3>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white rounded-lg p-6 border border-gray-200 text-center">
+                  <p className="text-heading-3 text-gray-800 font-bold mb-1">$2.3M</p>
+                  <p className="text-body-small text-gray-600">24h Volume</p>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-meridian-300 rounded-full"></div>
-                    <span className="text-body-base text-gray-300">Priority transaction processing</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-meridian-300 rounded-full"></div>
-                    <span className="text-body-base text-gray-300">Reduced protocol fees</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-meridian-300 rounded-full"></div>
-                    <span className="text-body-base text-gray-300">Governance voting rights</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-meridian-300 rounded-full"></div>
-                    <span className="text-body-base text-gray-300">Early access to new features</span>
-                  </div>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 text-center">
+                  <p className="text-heading-3 text-gray-800 font-bold mb-1">15,420</p>
+                  <p className="text-body-small text-gray-600">Transactions</p>
+                </div>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 text-center">
+                  <p className="text-heading-3 text-gray-800 font-bold mb-1">98.7%</p>
+                  <p className="text-body-small text-gray-600">Success Rate</p>
+                </div>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 text-center">
+                  <p className="text-heading-3 text-gray-800 font-bold mb-1">$45K</p>
+                  <p className="text-body-small text-gray-600">Fees Generated</p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Bottom CTA */}
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 text-body-base text-gray-400 mb-4">
-              <ArrowDown className="w-4 h-4" />
-              <span>Start earning with meridian</span>
+        {/* Staker Benefits */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-heading-2 mb-4">Staker Benefits</h3>
+            <p className="text-body-large text-gray-600">
+              More than just yield - unlock premium features
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-blue-600" />
+              </div>
+              <h4 className="text-heading-5 mb-3">Priority Processing</h4>
+              <p className="text-body-base text-gray-600">
+                Fast-track your transactions
+              </p>
             </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <DollarSign className="w-8 h-8 text-green-600" />
+              </div>
+              <h4 className="text-heading-5 mb-3">Reduced Fees</h4>
+              <p className="text-body-base text-gray-600">
+                Lower protocol costs
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-purple-600" />
+              </div>
+              <h4 className="text-heading-5 mb-3">Governance Rights</h4>
+              <p className="text-body-base text-gray-600">
+                Vote on protocol changes
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-meridian-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-8 h-8 text-meridian-600" />
+              </div>
+              <h4 className="text-heading-5 mb-3">Early Access</h4>
+              <p className="text-body-base text-gray-600">
+                New features first
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <div className="bg-meridian-50 rounded-lg p-8 inline-block">
+            <h3 className="text-heading-3 mb-4">Start earning with meridian</h3>
+            <p className="text-body-large text-gray-600 mb-6">
+              Join the network and earn yield from day one
+            </p>
             <div className="flex gap-4 justify-center">
-              <button className="px-8 py-3 bg-meridian-400 hover:bg-meridian-500 text-white font-semibold rounded-lg transition-colors">
+              <button className="px-8 py-3 bg-meridian-400 hover:bg-meridian-500 text-white font-semibold rounded-lg transition-colors flex items-center gap-2">
                 Stake Tokens
+                <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="px-8 py-3 border border-meridian-300 hover:border-meridian-200 text-meridian-300 hover:text-meridian-200 font-semibold rounded-lg transition-colors">
+              <button className="px-8 py-3 border border-meridian-300 hover:border-meridian-200 text-meridian-600 hover:text-meridian-700 font-semibold rounded-lg transition-colors">
                 Learn More
               </button>
             </div>
