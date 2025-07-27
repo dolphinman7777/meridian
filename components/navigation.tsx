@@ -23,25 +23,25 @@ export function Navigation() {
       <nav className="hidden md:flex items-center gap-6">
         <a 
           href="#" 
-          className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+          className="text-gray-300 hover:text-white transition-colors text-body-small font-medium"
         >
           Dashboard
         </a>
         <a 
           href="#" 
-          className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+          className="text-gray-300 hover:text-white transition-colors text-body-small font-medium"
         >
           Analytics
         </a>
         <a 
           href="#" 
-          className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+          className="text-gray-300 hover:text-white transition-colors text-body-small font-medium"
         >
           Projects
         </a>
         <a 
           href="#" 
-          className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+          className="text-gray-300 hover:text-white transition-colors text-body-small font-medium"
         >
           Teams
         </a>
@@ -60,7 +60,7 @@ export function Navigation() {
         <Button 
           variant="default" 
           size="sm" 
-          className="rounded-full bg-white hover:bg-gray-100 text-black hidden sm:flex"
+          className="rounded-full bg-white hover:bg-gray-100 text-black hidden sm:flex text-body-small font-medium"
         >
           Get Started
         </Button>

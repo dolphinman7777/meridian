@@ -13,9 +13,15 @@ const config: Config = {
   theme: {
   	extend: {
   		fontFamily: {
-  			sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
-  			heading: ['Helvetica Now Text', '-apple-system', 'BlinkMacSystemFont', 'Helvetica', 'Arial', 'sans-serif'],
+  			// Default body text
+  			sans: ['Helvetica Now Text', 'system-ui', 'sans-serif'],
+  			// Headings and display text
+  			display: ['Helvetica Now Display', 'system-ui', 'sans-serif'],
+  			// Small text
+  			micro: ['Helvetica Now Micro', 'system-ui', 'sans-serif'],
+  			// Keep mono for code/technical content
   			mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+  			// Keep meridian for brand elements
   			meridian: ['var(--font-quattrocento)', 'serif'],
   		},
   		colors: {
@@ -68,6 +74,19 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			// Custom meridian green palette
+  			meridian: {
+  				'50': '#BBF2D8',   // Very light green
+  				'100': '#9BF2CA',  // Light green  
+  				'200': '#48D995',  // Medium green
+  				'300': '#27F293',  // Bright green
+  				'400': '#11D97C',  // Darker bright green
+  				'500': '#0FC970',  // Calculated darker
+  				'600': '#0DB863',  // Calculated darker
+  				'700': '#0BA656',  // Calculated darker
+  				'800': '#099548',  // Calculated darker
+  				'900': '#07843B',  // Calculated darker
   			}
   		},
   		borderRadius: {

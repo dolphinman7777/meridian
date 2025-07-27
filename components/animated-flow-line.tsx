@@ -8,8 +8,8 @@ interface AnimatedFlowLineProps {
   strokeColor: string
   animationDuration?: number // in milliseconds for one full cycle
   segmentLengthRatio?: number // ratio of the total length for the animated segment
-  animationKey: number // Unique key for this animation instance
-  onAnimationComplete: (key: number) => void // Callback when animation finishes
+  animationKey: string // Unique key for this animation instance - changed from number to string
+  onAnimationComplete: (key: string) => void // Callback when animation finishes - changed from number to string
   layerOpacity?: number // Opacity multiplier for depth effect
 }
 
@@ -65,14 +65,26 @@ export const AnimatedFlowLine: React.FC<AnimatedFlowLineProps> = ({
       const currentOffset = pathLength - (pathLength + segmentLength) * progress
       setOffset(currentOffset)
 
-      // Animate opacity: fade out towards the end
-      const fadeStartTimeRatio = 0.7 // Start fading when 70% of animation is done
-      if (progress > fadeStartTimeRatio) {
-        const fadeProgress = (progress - fadeStartTimeRatio) / (1 - fadeStartTimeRatio)
-        setOpacity(1 - fadeProgress)
+      // Smooth opacity animation with fade-in and fade-out to prevent flashing
+      let currentOpacity = 1
+      const fadeInDuration = 0.15 // Fade in over first 15% of animation
+      const fadeOutStart = 0.75 // Start fading out at 75% completion
+      
+      if (progress < fadeInDuration) {
+        // Smooth fade-in using easeOut function
+        const fadeInProgress = progress / fadeInDuration
+        currentOpacity = fadeInProgress * fadeInProgress * (3.0 - 2.0 * fadeInProgress) // smoothstep
+      } else if (progress > fadeOutStart) {
+        // Smooth fade-out using easeIn function
+        const fadeOutProgress = (progress - fadeOutStart) / (1 - fadeOutStart)
+        const easedFadeOut = fadeOutProgress * fadeOutProgress * (3.0 - 2.0 * fadeOutProgress) // smoothstep
+        currentOpacity = 1 - easedFadeOut
       } else {
-        setOpacity(1) // Fully opaque during the main travel
+        // Fully opaque in the middle
+        currentOpacity = 1
       }
+      
+      setOpacity(Math.max(0, Math.min(1, currentOpacity))) // Clamp between 0 and 1
 
       animationFrameId = requestAnimationFrame(animate)
     }
