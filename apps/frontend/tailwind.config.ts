@@ -13,12 +13,12 @@ const config: Config = {
   theme: {
   	extend: {
   		fontFamily: {
-  			// Default body text
-  			sans: ['Helvetica Now Text', 'system-ui', 'sans-serif'],
-  			// Headings and display text
-  			display: ['Helvetica Now Display', 'system-ui', 'sans-serif'],
-  			// Small text
-  			micro: ['Helvetica Now Micro', 'system-ui', 'sans-serif'],
+  			// Apple system font stack for all text
+  			sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+  			// Apple system font stack for headings
+  			display: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+  			// Apple system font stack for small text
+  			micro: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
   			// Keep mono for code/technical content
   			mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
   			// Keep meridian for brand elements

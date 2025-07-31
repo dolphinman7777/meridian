@@ -12,8 +12,40 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function Navigation() {
+  const [isVisible, setIsVisible] = React.useState(true)
+  const [lastScrollY, setLastScrollY] = React.useState(0)
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      // Show navbar at top of page
+      if (currentScrollY < 50) {
+        setIsVisible(true)
+      }
+      // Hide when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false)
+      }
+      // Show when scrolling up with significant movement
+      else if (lastScrollY - currentScrollY > 50) {
+        setIsVisible(true)
+      }
+      
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
+
   return (
-    <Toolbar>
+    <div
+      className={`fixed top-4 left-4 right-4 z-50 transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
+      <Toolbar>
       {/* Brand */}
       <div className="flex items-center gap-2">
         <img src="/meridian-4.svg" alt="Meridian Logo" className="w-8 h-8" />
@@ -81,6 +113,7 @@ export function Navigation() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </Toolbar>
+      </Toolbar>
+    </div>
   )
 } 

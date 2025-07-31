@@ -13,8 +13,6 @@ const Toolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(
       <div
         ref={ref}
         className={cn(
-          // Base styles
-          "fixed top-4 left-4 right-4 z-50",
           // Glass morphism effect
           "bg-black/90 backdrop-blur-md border border-gray-700/50",
           // Rounded edges
